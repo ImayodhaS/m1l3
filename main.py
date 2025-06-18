@@ -1,7 +1,6 @@
 import discord
 from genpass import gen_pass
 from flip import flip_coin
-from emoji import gen_emodji
 
 # Variabel intents menyimpan hak istimewa bot
 intents = discord.Intents.default()
@@ -24,6 +23,8 @@ async def on_message(message):
         await message.channel.send("\U0001f642")
     elif message.content.startswith('$pass'):
         await message.channel.send(gen_pass(10))
+    elif message.content.startswith('$flip'):
+        await message.channel.send(flip_coin())
     else:
         await message.channel.send(message.content)
 
