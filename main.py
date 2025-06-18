@@ -1,31 +1,45 @@
 import discord
+import random
+from discord.ext import commands
 from genpass import gen_pass
 from flip import flip_coin
 
-# Variabel intents menyimpan hak istimewa bot
 intents = discord.Intents.default()
-# Mengaktifkan hak istimewa message-reading
 intents.message_content = True
-# Membuat bot di variabel klien dan mentransfernya hak istimewa
-client = discord.Client(intents=intents)
 
-@client.event
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+@bot.event
 async def on_ready():
-    print(f'Kita telah masuk sebagai {client.user}')
+    print(f'We have logged in as {bot.user}')
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-    if message.content.startswith('$halo'):
-        await message.channel.send("Hi!")
-    elif message.content.startswith('$bye'):
-        await message.channel.send("\U0001f642")
-    elif message.content.startswith('$pass'):
-        await message.channel.send(gen_pass(10))
-    elif message.content.startswith('$flip'):
-        await message.channel.send(flip_coin())
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Hi! I am a bot {bot.user}!')
+
+@bot.command()
+async def heh(ctx, count_heh = 5):
+    await ctx.send("he" * count_heh)
+
+@bot.command()
+async def password(ctx, panjang = 5):
+    await ctx.send(gen_pass(panjang))
+
+@bot.command()
+async def coin(ctx):
+    await ctx.send(flip_coin())
+
+@bot.command()
+async def tebak(ctx):
+    global jawaban
+    jawaban = random.randint(0, 11)
+    await ctx.send("tebak dari satu sampai 12")
+
+@bot.command()
+async def answear(ctx):
+    if answear == int(jawaban):
+        await ctx.send("jawaban mu benar")
     else:
-        await message.channel.send(message.content)
-
-client.run("token")
+        await ctx.send("salah")
+        
+bot.run("token")
