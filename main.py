@@ -16,6 +16,7 @@ quotes = [
     "Kamu hebat, dan kamu pasti bisa!",
 ]
 
+
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
@@ -52,5 +53,14 @@ async def answear(ctx):
 @bot.command()
 async def katakatahariini(ctx):
     await ctx.send(random.choice(quotes))
+
+@bot.command()
+async def kamusiapa(ctx):
+    await ctx.send("AKu adalah bot buatan yogi")
+
+@bot.command()
+async def kamusukanyaapa(ctx):
+    await ctx.send("aku sukanya kamu")
         
-bot.run("token")
+
+bot.run("Token")
