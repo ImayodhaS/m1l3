@@ -9,6 +9,13 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix='$', intents=intents)
 
+quotes = [
+    "Semangat! Hari ini milikmu",
+    "Gagal itu biasa, bangkit itu luar biasa!",
+    "Teruslah belajar, karena dunia tak pernah berhenti berubah",
+    "Kamu hebat, dan kamu pasti bisa!",
+]
+
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
@@ -41,5 +48,9 @@ async def answear(ctx):
         await ctx.send("jawaban mu benar")
     else:
         await ctx.send("salah")
+
+@bot.command()
+async def katakatahariini(ctx):
+    await ctx.send(random.choice(quotes))
         
 bot.run("token")
